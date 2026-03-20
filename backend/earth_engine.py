@@ -9,7 +9,7 @@ def initialize_ee(project_id):
     if credentials_json:
         credentials_dict = json.loads(credentials_json)
         credentials = ee.ServiceAccountCredentials(
-            email=credentials_dict['forest-change-ee@eloquent-walker-460311-q0.iam.gserviceaccount.com'],
+            email=credentials_dict['client_mail'],
             key_data=credentials_json
         )
         ee.Initialize(credentials=credentials, project=project_id)

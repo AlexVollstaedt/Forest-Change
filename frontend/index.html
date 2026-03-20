@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forest Change Detector</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="top-header">
+            <h1>
+                Forest Change Detection App
+                <span class="separator">|</span>
+                <span class="header-description">Select any area on earth to detect deforestation patterns over time</span>
+                <button class="info-icon" id="infoBtn">i</button>
+            </h1>
+    </header>
+
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <h2>About this App</h2>
+            <div class="modal-body">
+                <p>The <strong>Forest Change Detection App</strong> is an interactive web application that analyzes forest cover changes using satellite imagery from Google Earth Engine.</p>
+
+                <p><strong>How to use:</strong></p>
+                <ul>
+                    <li>Search for a location or navigate the map manually</li>
+                    <li>Adjust the time period slider to select your analysis timeframe (2000-2024)</li>
+                    <li>Click "Select Area on Map" to draw a rectangle over your area of interest</li>
+                    <li>Click "Analyze Forest Change" to process the data</li>
+                    <li>Click "Download Yearly Data" to get the processed data in .csv format</li>
+                </ul>
+
+                <p><strong>Data Source:</strong> This application uses the Hansen Global Forest Change dataset (v1.12, 2024) accessed through Google Earth Engine API.</p>
+                <p><strong>Basemap:</strong> The basemap used for this application is the ESRI World Imagery basemap in combination with ESRI World Boundaries and Places labels</p>
+                <p><strong>Purpose:</strong> This is a personal portfolio project created to demonstrate geospatial analysis and web development skills.</p>
+            </div>
+            <div class="modal-footer">
+                <button id="closeModal" class="btn-close-modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <div class="sidebar">
+            <div class="controls">
+                <div class="form-group">
+                    <label for="locationSearch"></label>
+                    <div class="search-input-wrapper">
+                        <input type="text" id="locationSearch" placeholder="Search Location">
+                        <button type="button" id="clearSearch" class="clear-btn" style="display: none;">&times;</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Select Time Period: <span id="yearRangeDisplay"></span></label>
+                    <div class="slider-container">
+                        <input type="range" id="startYear" min="2000" max="2024" value="2000" class="year-slider">
+                        <input type="range" id="endYear" min="2000" max="2024" value="2024" class="year-slider">
+                    </div>
+                    <div class="slider-labels">
+                        <span>2000</span>
+                        <span>2024</span>
+                    </div>
+                </div>
+
+                <button id="selectAreaBtn" class="btn-select">Select Area on Map</button>
+
+                <button id="analyzeBtn" class="btn-analyze" disabled>Analyze</button>
+
+                <div id="loading" class="loading" style="display: none;">
+                    <p>Analyzing satellite imagery...</p>
+                    <div class="spinner"></div>
+                </div>
+
+                <div id="results" class="results" style="display: none;">
+                    <h3>Results</h3>
+                    <div class="result-item">
+                        <span class="label">Time Period:</span>
+                        <span id="resultPeriod"></span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">Forest Area (2000):</span>
+                        <span id="resultForestArea"></span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">Forest Loss:</span>
+                        <span id="resultLoss"></span>
+                    </div>
+                    <div class="result-item highlight">
+                        <span class="label">Loss Percentage:</span>
+                        <span id="resultPercentage"></span>
+                    </div>
+
+                    <div class="download-buttons">
+                        <button id="downloadCSV" class="btn-download">Download Yearly Data</button>
+                    </div>
+
+                    <div class="chart-container">
+                        <h4>Yearly Forest Loss</h4>
+                        <canvas id="yearlyChart"></canvas>
+                    </div>
+                </div>
+
+                <div id="error" class="error" style="display: none;"></div>
+            </div>
+        </div>
+
+        <div id="map"></div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

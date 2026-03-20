@@ -1,0 +1,493 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.top-header {
+    background: #222728;
+    color: #1ca322;
+    padding: 15px 30px;
+    border-bottom: 2px solid #1ca322;
+}
+
+.top-header h1 {
+    font-size: 20px;
+    margin: 0;
+    font-weight: 600;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.separator {
+    color: #1ca322;
+    font-weight: 300;
+}
+
+.header-description {
+    font-size: 14px;
+    font-weight: 400;
+    color: #1ca322;
+}
+
+.info-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: white;
+    color: #000;
+    border: none;
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.info-icon:hover {
+    transform: scale(1.1);
+    background: #f0f0f0;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-content h2 {
+    background: #2d5016;
+    color: white;
+    margin: 0;
+    padding: 20px 25px;
+    border-radius: 8px 8px 0 0;
+    font-size: 1.5em;
+}
+
+.modal-body {
+    padding: 25px;
+    color: #333;
+    line-height: 1.6;
+}
+
+.modal-body p {
+    margin-bottom: 15px;
+}
+
+.modal-body ul {
+    margin: 10px 0 15px 20px;
+}
+
+.modal-body li {
+    margin-bottom: 8px;
+}
+
+.modal-footer {
+    padding: 15px 25px;
+    text-align: right;
+    border-top: 1px solid #e0e0e0;
+}
+
+.btn-close-modal {
+    padding: 10px 25px;
+    background: #4a7c2c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-close-modal:hover {
+    background: #3a6422;
+}
+
+.app-container {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.sidebar {
+    width: 400px;
+    background: #222728;
+    border-right: 2px solid #1ca322;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.controls {
+    padding: 30px;
+    flex: 1;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #acadac;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #acadac;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #acadac;
+}
+
+.search-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-input-wrapper input {
+    padding-right: 35px;
+}
+
+.clear-btn {
+    position: absolute;
+    right: 8px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #999;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+}
+
+.clear-btn:hover {
+    color: #c62828;
+}
+
+.btn-select {
+    width: 100%;
+    padding: 15px;
+    background: #2196F3;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-bottom: 15px;
+}
+
+.btn-select:hover {
+    background: #1976D2;
+}
+
+.btn-select.active {
+    background: #FF9800;
+}
+
+.btn-select.active:hover {
+    background: #F57C00;
+}
+
+.btn-analyze {
+    width: 100%;
+    padding: 15px;
+    background: #1ca322;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-analyze:hover:not(:disabled) {
+    background: #4a7c2c;
+}
+
+.btn-analyze:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.loading {
+    text-align: center;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #4a7c2c;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 10px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.results {
+    margin-top: 20px;
+    padding: 20px;
+    background: white;
+    border-radius: 5px;
+    border: 2px solid #4a7c2c;
+}
+
+.results h3 {
+    color: #2d5016;
+    margin-bottom: 15px;
+}
+
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.result-item:last-child {
+    border-bottom: none;
+}
+
+.result-item .label {
+    font-weight: 600;
+    color: #555;
+}
+
+.result-item.highlight {
+    background: #e8f5e9;
+    padding: 15px;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-size: 1.1em;
+}
+
+.download-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.btn-download {
+    flex: 1;
+    padding: 10px 15px;
+    background: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.95em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-download:hover {
+    background: #1976D2;
+}
+
+.error {
+    margin-top: 20px;
+    padding: 15px;
+    background: #ffebee;
+    color: #c62828;
+    border-radius: 5px;
+    border-left: 4px solid #c62828;
+}
+
+.chart-container {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 2px solid #e0e0e0;
+}
+
+.chart-container h4 {
+    margin-bottom: 15px;
+    color: #2d5016;
+    font-size: 1.1em;
+}
+
+#yearlyChart {
+    max-height: 300px;
+    height: 300px;
+}
+
+#map {
+    flex: 1;
+}
+
+.slider-container {
+    position: relative;
+    height: 40px;
+    margin: 15px 0;
+}
+
+.year-slider {
+    position: absolute;
+    width: 100%;
+    height: 8px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    outline: none;
+    pointer-events: none;
+}
+
+/* Only the FIRST slider (start year) shows the track */
+#startYear::-webkit-slider-track {
+    width: 100%;
+    height: 8px;
+    background: #4e4e4e;
+    border-radius: 4px;
+}
+
+#startYear::-moz-range-track {
+    width: 100%;
+    height: 4px;
+    background: #4e4e4e;
+    border-radius: 4px;
+}
+
+/* Second slider (end year) has TRANSPARENT track */
+#endYear::-webkit-slider-track {
+    width: 100%;
+    height: 8px;
+    background: transparent;
+    border-radius: 4px;
+}
+
+#endYear::-moz-range-track {
+    width: 100%;
+    height: 4px;
+    background: transparent;
+    border-radius: 4px;
+}
+
+.year-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 10px;
+    height: 10px;
+    background: #4e4e4e;
+    border-radius: 50%;
+    cursor: pointer;
+    pointer-events: auto;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.year-slider::-moz-range-thumb {
+    width: 1px;
+    height: 10px;
+    background: #4e4e4e;
+    border-radius: 50%;
+    cursor: pointer;
+    pointer-events: auto;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+#startYear::-webkit-slider-thumb {
+    background: #4e4e4e;
+}
+
+#startYear::-moz-range-thumb {
+    background: #4e4e4e;
+}
+
+.slider-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85em;
+    color: #666;
+    margin-top: -20px;
+}
+
+#yearRangeDisplay {
+    font-weight: bold;
+    color: #666;
+}
+
+@media (max-width: 900px) {
+    .app-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        max-height: 50vh;
+    }
+
+    #map {
+        flex: 1;
+    }
+}

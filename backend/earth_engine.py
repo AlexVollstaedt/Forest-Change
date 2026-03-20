@@ -1,8 +1,21 @@
 import ee
+import json
+import os
 
 def initialize_ee(project_id):
-    """Initialize Earth Engine with project ID"""
-    ee.Initialize(project=project_id)
+    """Initialize Earth Engine with service account credentials"""
+    credentials_json = os.environ.get('EE_CREDENTIALS')
+
+    if credentials_json:
+        credentials_dict = json.loads(credentials_json)
+        credentials = ee.ServiceAccountCredentials(
+            email=credentials_dict['forest-change-ee@eloquent-walker-460311-q0.iam.gserviceaccount.com'],
+            key_data=credentials_json
+        )
+        ee.Initialize(credentials=credentials, project=project_id)
+    else:
+        # Fall back to local authentication for development
+        ee.Initialize(project=project_id)
 
 def analyze_forest_change(bounds, start_year, end_year):
     """
